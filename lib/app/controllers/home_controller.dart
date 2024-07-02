@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'controller.dart';
 
 class HomeController extends Controller {
-
   onTapDocumentation() async {
     await launchUrl(Uri.parse("https://nylo.dev/docs"));
   }
@@ -15,12 +14,16 @@ class HomeController extends Controller {
   }
 
   onTapChangeLog() async {
-    await launchUrl(Uri.parse(
-        "https://github.com/nylo-core/nylo/releases"));
+    await launchUrl(Uri.parse("https://github.com/nylo-core/nylo/releases"));
   }
 
   onTapYouTube() async {
     await launchUrl(Uri.parse("https://m.youtube.com/@nylo_dev"));
+  }
+
+  onTapcalendar() async {
+    String baseUrl = await NyStorage.read("baseurl");
+    await launchUrl(Uri.parse("$baseUrl/sensor-data-records"));
   }
 
   showAbout() {

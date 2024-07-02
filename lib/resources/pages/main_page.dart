@@ -4,10 +4,11 @@ import 'package:nylo_framework/nylo_framework.dart';
 import '../../app/providers/sensor_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import '/app/controllers/home_controller.dart';
 
 import '../../bootstrap/helpers.dart';
 
-class MainPage extends NyStatefulWidget {
+class MainPage extends NyStatefulWidget<HomeController> {
   static const path = '/main';
 
   MainPage({super.key}) : super(path, child: () => _MainPageState());
@@ -81,40 +82,48 @@ class _MainPageState extends NyState<MainPage> {
           ),
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add), // Use any icon from Icons class
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text('Enter base url'),
-                    content: TextField(
-                        controller: _textController,
-                        decoration: InputDecoration(
-                          hintText: 'http://192.168.1.2:8000',
-                        )),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text('Save'),
-                        onPressed: () {
-                          print('Saved text: ${_textController.text}');
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.calendar_month),
+                onPressed: widget.controller.onTapcalendar,
+              ),
+              IconButton(
+                icon: Icon(Icons.add), // Use any icon from Icons class
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Enter base url'),
+                        content: TextField(
+                            controller: _textController,
+                            decoration: InputDecoration(
+                              hintText: 'http://192.168.1.2:8000',
+                            )),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Save'),
+                            onPressed: () {
+                              print('Saved text: ${_textController.text}');
 
-                          // NyStorage.store('baseurl', '${_textController.text}',
-                          //     inBackpack: true);
-                          // Backpack.instance
-                          //     .set('baseurl', '${_textController.text}');
+                              // NyStorage.store('baseurl', '${_textController.text}',
+                              //     inBackpack: true);
+                              // Backpack.instance
+                              //     .set('baseurl', '${_textController.text}');
 
-                          Navigator.of(context).pop(NyStorage.store(
-                              "baseurl", "${_textController.text}",
-                              inBackpack: true));
-                        },
-                      ),
-                    ],
+                              Navigator.of(context).pop(NyStorage.store(
+                                  "baseurl", "${_textController.text}",
+                                  inBackpack: true));
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
-              );
-            },
+              ),
+            ],
           ),
         ],
       ),
